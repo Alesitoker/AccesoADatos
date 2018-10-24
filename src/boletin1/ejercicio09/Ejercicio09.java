@@ -23,7 +23,7 @@ public class Ejercicio09 {
         }
 
         do {
-            System.out.println("1.Consultar todos los contactos.\n2.Consultar un contacto.\n3.Añadir un contacto.\n4.Eliminar un contacto.\n5.Modificar deuda.\n6.Compactación.\n7.Salir.");
+            System.out.println("1.Consult all contacts.\n2.Consult a contact.\n3.Add a contact.\n4.Delete a contact.\n5.Modify debt.\n6.Compaction.\n7.Exit.");
             option = Teclado.leerNumero(Teclado.Tipo.BYTE);
 
             switch (option) {
@@ -35,7 +35,7 @@ public class Ejercicio09 {
                     }
                     break;
                 case 2:
-                    System.out.println("Introduce el id del contacto a consultar:");
+                    System.out.println("Enter the contact id to consult:");
                     id = Teclado.leerNumero(Teclado.Tipo.INT);
                     try {
                         consultContact(fileR, id);
@@ -51,15 +51,25 @@ public class Ejercicio09 {
                     }
                     break;
                 case 4:
-                    System.out.println("Introduce el id del contacto a borrar:");
+                    System.out.println("Enter the id of the contact to be deleted:");
                     id = Teclado.leerNumero(Teclado.Tipo.INT);
-                    deleteContact(fileR, id);
+                    try {
+                        deleteContact(fileR, id);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 5:
-                    modifyDebt(fileR);
+                    System.out.println("Enter contact to modify debt:");
+                    id = Teclado.leerNumero(Teclado.Tipo.INT);
+                    try {
+                        modifyDebt(fileR, id);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 6:
-                    compactar(fileR);
+                    compact(fileR);
                     break;
                 case 7:
                     exit = true;
@@ -73,12 +83,9 @@ public class Ejercicio09 {
     }
 
     private static void consultContacts(RandomAccessFile fileR) throws IOException {
-        int posicion = 0, idContador = 1, i, phoneNumber = 0, zipCode = 0, id;
+        int posicion = 0, idContador = 1;
         final int TOTALBYTES = 152;
-        long size = 0;
-        String name = "", address = "", birthdate = "";
-        boolean debt = false;
-        double debtAmount = 0;
+        long size;
 
         if (fileR != null) {
             size = (int) fileR.length();
@@ -98,12 +105,9 @@ public class Ejercicio09 {
     }
 
     private static void consultContact(RandomAccessFile fileR, int id) throws IOException {
-        int posicion = 0, i, phoneNumber, zipCode;
+        int posicion;
         final int TOTALBYTES = 152;
         long size;
-        String name = "", address = "", birthdate = "";
-        double debtAmount;
-        boolean debt;
         if (fileR != null) {
             size = fileR.length();
             posicion = TOTALBYTES*(id-1);
@@ -113,10 +117,10 @@ public class Ejercicio09 {
                 if (fileR.readBoolean()) {
                     showContact(fileR, posicion);
                 } else {
-                    System.out.println("Contacto no existe.");
+                    System.out.println("The contact does not exist");
                 }
             } else {
-                System.out.println("Contacto no existe");
+                System.out.println("The contact does not exist");
             }
         }
     }
@@ -186,32 +190,44 @@ public class Ejercicio09 {
         }
     }
 
-    private static void deleteContact(RandomAccessFile fileR, int id) {
+    private static void deleteContact(RandomAccessFile fileR, int id) throws IOException {
+        int posicion;
+        final int TOTALBYTES = 152;
         if (fileR != null) {
-
+            posicion = TOTALBYTES * (id-1);
+            if (posicion < fileR.length()) {
+                fileR.seek(posicion+4);
+                fileR.writeBoolean(false);
+            }  else {
+                System.out.printf("The contact does not exist.");
+            }
         }
     }
 
-    private static void modifyDebt(RandomAccessFile fileR) {
+    private static void modifyDebt(RandomAccessFile fileR, int id) throws IOException {
+        int position;
+        double debtAmount;
+        final int TOTALBYTES = 152, POSITIONDEBT = 144;
         if (fileR != null) {
-
+            position = TOTALBYTES * (id-1);
+            if (position < fileR.length()) {
+                fileR.seek(position + POSITIONDEBT);
+                System.out.println("How much money do you owe?");
+                debtAmount = Teclado.leerNumero(Teclado.Tipo.DOUBLE);
+                fileR.writeDouble(debtAmount);
+            }
         }
     }
 
-    private static void compactar(RandomAccessFile fileR) {
+    private static void compact(RandomAccessFile fileR) {
         if (fileR != null) {
 
         }
     }
 
     private static void showContact(RandomAccessFile fileR, int posicion) throws IOException {
-        String name;
-        String birthdate;
-        String address;
-        int id;
-        int i;
-        int phoneNumber;
-        int zipCode;
+        String name, address, birthdate;
+        int i, id, phoneNumber, zipCode;
         boolean debt;
         double debtAmount;
         name = "";
