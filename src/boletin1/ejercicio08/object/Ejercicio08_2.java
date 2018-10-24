@@ -9,10 +9,10 @@ import java.time.format.DateTimeParseException;
 
 public class Ejercicio08_2 {
     public static void main(String[] args) {
-//        File f = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
-        File f = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
-//        File f2 = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi","Objecto.txt");
-        File f2 = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\bi","Objecto.txt");
+        File f = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
+//        File f = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
+        File f2 = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi","Objecto.txt");
+//        File f2 = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\bi","Objecto.txt");
         ObjectInputStream read;
         ObjectOutputStream write = null;
         String name, address;

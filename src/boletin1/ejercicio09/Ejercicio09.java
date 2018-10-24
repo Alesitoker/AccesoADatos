@@ -16,7 +16,8 @@ public class Ejercicio09 {
         int id;
         RandomAccessFile fileR = null;
         try {
-            fileR = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
+//            fileR = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
+            fileR = new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
