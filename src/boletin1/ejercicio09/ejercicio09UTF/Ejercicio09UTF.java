@@ -1,4 +1,4 @@
-package boletin1.ejercicio09;
+package boletin1.ejercicio09.ejercicio09UTF;
 
 import utils.Teclado;
 
@@ -10,15 +10,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
-public class Ejercicio09 {
+public class Ejercicio09UTF {
     public static void main(String[] args) {
         byte option;
         boolean exit = false;
         int id;
         RandomAccessFile fileR = null;
         try {
-//            fileR = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
-            fileR = new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
+//            fileR = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridierUTF.dat", "rw");
+            fileR = new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridierUTF.dat", "rw");
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -87,7 +87,6 @@ public class Ejercicio09 {
             }
         } while (!exit);
         try {
-            if (fileR != null)
             fileR.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -95,8 +94,8 @@ public class Ejercicio09 {
     }
 
     private static void consultContacts(RandomAccessFile fileR) throws IOException {
-        int position = 0, idCounter = 1;
-        final int TOTAL_BYTES = 152, SKIP_INT = 4;
+        int position = 0, idCounter = 0;
+        final int TOTAL_BYTES = 158, SKIP_INT = 4;
         long size;
 
         if (fileR != null) {
@@ -108,15 +107,15 @@ public class Ejercicio09 {
                 if (fileR.readBoolean()) {
                     showContact(fileR, position);
                 }
-                position = TOTAL_BYTES * idCounter;
                 idCounter++;
+                position = TOTAL_BYTES * idCounter;
             }
         }
     }
 
     private static void consultContact(RandomAccessFile fileR, int id) throws IOException {
         int position;
-        final int TOTAL_BYTES = 152;
+        final int TOTAL_BYTES = 158;
         long size;
         if (fileR != null) {
             size = fileR.length();
@@ -136,10 +135,9 @@ public class Ejercicio09 {
     }
 
     private static void addContact(RandomAccessFile fileR) throws IOException {
-        String name, address;
-        StringBuffer buffer;
+        String name, address, buffer;
         int zipCode, phoneNumber, id;
-        final int TOTAL_BYTES = 152;
+        final int TOTAL_BYTES = 158;
         long sizeFile, position;
         boolean debt, wrongData;
         LocalDate birthdate = null;
@@ -175,7 +173,7 @@ public class Ejercicio09 {
                     wrongData = false;
                 } catch (DateTimeParseException e) {
                     wrongData = true;
-                    System.out.println("the date must be in the format dd-mm-yyyy");
+                    System.out.printf("the date must be in the format dd-mm-yyyy\n");
                 }
             } while (wrongData);
             debt = Teclado.leerBoolean("Do you owe money?", "Yes", "No");
@@ -188,15 +186,13 @@ public class Ejercicio09 {
             fileR.seek(sizeFile);
             fileR.writeInt(id + 1);
             fileR.writeBoolean(true);
-            buffer = new StringBuffer(name);
-            buffer.setLength(20);
-            fileR.writeChars(buffer.toString());
+            buffer = String.format("%20s", name);
+            fileR.writeUTF(buffer);
             fileR.writeInt(phoneNumber);
-            buffer = new StringBuffer(address);
-            buffer.setLength(35);
-            fileR.writeChars(buffer.toString());
+            buffer = String.format("%35s", address);
+            fileR.writeUTF(buffer);
             fileR.writeInt(zipCode);
-            fileR.writeChars(birthdate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
+            fileR.writeUTF(birthdate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
             fileR.writeBoolean(debt);
             fileR.writeDouble(debtAmount);
         }
@@ -204,14 +200,14 @@ public class Ejercicio09 {
 
     private static void deleteContact(RandomAccessFile fileR, int id) throws IOException {
         int position;
-        final int TOTAL_BYTES = 152, SKIP_INT = 4;
+        final int TOTAL_BYTES = 158, SKIP_INT = 4;
         if (fileR != null) {
             position = TOTAL_BYTES * (id-1);
             if (position < fileR.length()) {
                 fileR.seek(position + SKIP_INT);
                 fileR.writeBoolean(false);
             }  else {
-                System.out.println("The contact does not exist.");
+                System.out.printf("The contact does not exist.");
             }
         }
     }
@@ -219,7 +215,7 @@ public class Ejercicio09 {
     private static void modifyDebt(RandomAccessFile fileR, int id) throws IOException {
         int position;
         double debtAmount;
-        final int TOTAL_BYTES = 152, POSITION_DEBT = 144;
+        final int TOTAL_BYTES = 158, POSITION_DEBT = 144;
         if (fileR != null) {
             position = TOTAL_BYTES * (id-1);
             if (position < fileR.length()) {
@@ -233,7 +229,7 @@ public class Ejercicio09 {
 
     private static RandomAccessFile compact(RandomAccessFile fileR) throws IOException {
         int position = 0, idContador = 0, newId = 0;
-        final int TOTAL_BYTES = 152, SKIP_INT = 4;
+        final int TOTAL_BYTES = 158, SKIP_INT = 4;
         RandomAccessFile compactor;
         File dir, fCompactator;
 //        dir = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random");
@@ -241,7 +237,7 @@ public class Ejercicio09 {
 //        compactor = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\compactator.dat", "rw");
         dir = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random");
         fCompactator = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\compactator.dat");
-        File fileRandom = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat");
+        File fileRandom = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridierUTF.dat");
         compactor = new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\compactator.dat", "rw");
 
         if (fileR != null) {
@@ -260,79 +256,57 @@ public class Ejercicio09 {
             compactor.close();
             fileRandom.delete();
             fCompactator.renameTo(new File(dir, "ridier.dat"));
-//            return new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
-            return new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
+//            return new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridierUTF.dat", "rw");
+            return new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridierUTF.dat", "rw");
         }
         return null;
     }
 
     private static void makeCompaction(RandomAccessFile fileToCompact, RandomAccessFile compactor, int position, int id) throws IOException {
         String name, address, birthdate;
-        StringBuffer buffer;
-        int i, phoneNumber, zipCode;
+        int phoneNumber, zipCode;
         final int SKIP_BOOLEAN = 5;
         boolean debt;
         double debtAmount;
-        name = "";
-        birthdate = "";
-        address = "";
 
         // Nos posicionamos despues del boolean.
         fileToCompact.seek(position + SKIP_BOOLEAN);
-        for (i = 0; i < 20; i++) {
-            name += fileToCompact.readChar();
-        }
+
+        name = fileToCompact.readUTF();
         phoneNumber = fileToCompact.readInt();
-        for (i = 0; i < 35; i++) {
-            address += fileToCompact.readChar();
-        }
+        address = fileToCompact.readUTF();
         zipCode = fileToCompact.readInt();
-        for (i = 0; i < 10; i++) {
-            birthdate += fileToCompact.readChar();
-        }
+        birthdate = fileToCompact.readUTF();
         debt = fileToCompact.readBoolean();
         debtAmount = fileToCompact.readDouble();
 
-        compactor.writeInt(id); // 4
-        compactor.writeBoolean(true); // 1
-        buffer = new StringBuffer(name);
-        buffer.setLength(20);
-        compactor.writeChars(buffer.toString()); // 40
-        compactor.writeInt(phoneNumber); // 4
-        buffer = new StringBuffer(address);
-        buffer.setLength(35);
-        compactor.writeChars(buffer.toString()); // 70
-        compactor.writeInt(zipCode); // 4
-        compactor.writeChars(birthdate); // 20
-        compactor.writeBoolean(debt); // 1
-        compactor.writeDouble(debtAmount); // 8
+        compactor.writeInt(id);
+        compactor.writeBoolean(true);
+        compactor.writeUTF(name);
+        compactor.writeInt(phoneNumber);
+        compactor.writeUTF(address);
+        compactor.writeInt(zipCode);
+        compactor.writeUTF(birthdate);
+        compactor.writeBoolean(debt);
+        compactor.writeDouble(debtAmount);
     }
 
     private static void showContact(RandomAccessFile fileR, int posicion) throws IOException {
         String name, address, birthdate;
-        int i, id, phoneNumber, zipCode;
+        int id, phoneNumber, zipCode;
         final int SKIP_BOOLEAN = 1;
         boolean debt;
         double debtAmount;
-        name = "";
-        birthdate = "";
-        address = "";
 
         fileR.seek(posicion);
         id = fileR.readInt();
         // Saltar posicion para no mostrar el boolean de borrado.
         fileR.skipBytes(SKIP_BOOLEAN);
-        for (i = 0; i < 20; i++) {
-            name += fileR.readChar();
-        }
+        name = fileR.readUTF();
         phoneNumber = fileR.readInt();
-        for (i = 0; i < 35; i++) {
-            address += fileR.readChar();
-        }
+        address = fileR.readUTF();
         zipCode = fileR.readInt();
-        for (i = 0; i < 10; i++) {
-            birthdate += fileR.readChar();
-        }
+        birthdate = fileR.readUTF();
         debt = fileR.readBoolean();
         debtAmount = fileR.readDouble();
 

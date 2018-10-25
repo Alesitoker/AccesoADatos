@@ -1,11 +1,11 @@
-package boletin1.ejercicio09.creacion;
+package boletin1.ejercicio09.ejercicio09UTF.creacionUTF;
 
 import boletin1.ejercicio08.object.Contact;
 
 import java.io.*;
 import java.time.format.DateTimeFormatter;
 
-public class CreateRandonFile {
+public class CreateRandonFileUTF {
     public static void main(String[] args) {
 //        File file8 = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
         File file8 = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
@@ -13,26 +13,24 @@ public class CreateRandonFile {
         RandomAccessFile randomFile = null;
         Contact contact;
         byte id = 0;
-        StringBuffer buffer;
+        String buffer;
         try {
             read = new ObjectInputStream(new FileInputStream(file8));
-//            randomFile = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
-            randomFile = new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
+//            randomFile = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridierUTF.dat", "rw");
+            randomFile = new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridierUTF.dat", "rw");
             try {
                 while (true) {
                     contact = (Contact) read.readObject();
 
                     randomFile.writeInt(++id); // 4
                     randomFile.writeBoolean(true); // 1
-                    buffer = new StringBuffer(contact.getName());
-                    buffer.setLength(20);
-                    randomFile.writeChars(buffer.toString()); // 40
+                    buffer = String.format("%-20s", contact.getName());
+                    randomFile.writeUTF(buffer); // 42
                     randomFile.writeInt(contact.getPhoneNumber()); // 4
-                    buffer = new StringBuffer(contact.getAddress());
-                    buffer.setLength(35);
-                    randomFile.writeChars(buffer.toString()); // 70
+                    buffer = String.format("%-35s", contact.getAddress());
+                    randomFile.writeUTF(buffer); // 72
                     randomFile.writeInt(contact.getZipCode()); // 4
-                    randomFile.writeChars(contact.getBirthdate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))); // 20
+                    randomFile.writeUTF(contact.getBirthdate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))); // 22
                     randomFile.writeBoolean(contact.isDebt()); // 1
                     randomFile.writeDouble(contact.getDebtAmount()); // 8
                     // Total: 152
