@@ -38,10 +38,12 @@ public class Ejercicio09UTF {
                 case 2:
                     System.out.println("Enter the contact id to consult:");
                     id = Teclado.leerNumero(Teclado.Tipo.INT);
-                    try {
-                        consultContact(fileR, id);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (id > 0) {
+                        try {
+                            consultContact(fileR, id);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 case 3:
@@ -55,21 +57,26 @@ public class Ejercicio09UTF {
                 case 4:
                     System.out.println("Enter the id of the contact to be deleted:");
                     id = Teclado.leerNumero(Teclado.Tipo.INT);
-                    try {
-                        deleteContact(fileR, id);
-                        System.out.println("The contact has been successfully removed");
-                    } catch (IOException e) {
-                        e.printStackTrace();
+
+                    if (id > 0) {
+                        try {
+                            deleteContact(fileR, id);
+                            System.out.println("The contact has been successfully removed");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 case 5:
                     System.out.println("Enter contact to modify debt:");
                     id = Teclado.leerNumero(Teclado.Tipo.INT);
-                    try {
-                        modifyDebt(fileR, id);
-                        System.out.println("The debt has been modified satisfactorily");
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                    if (id > 0) {
+                        try {
+                            modifyDebt(fileR, id);
+                            System.out.println("The debt has been modified satisfactorily");
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                     break;
                 case 6:
@@ -95,7 +102,7 @@ public class Ejercicio09UTF {
 
     private static void consultContacts(RandomAccessFile fileR) throws IOException {
         int position = 0, idCounter = 0;
-        final int TOTAL_BYTES = 158, SKIP_INT = 4;
+        final int TOTAL_BYTES = 93, SKIP_INT = 4;
         long size;
 
         if (fileR != null) {
@@ -115,7 +122,7 @@ public class Ejercicio09UTF {
 
     private static void consultContact(RandomAccessFile fileR, int id) throws IOException {
         int position;
-        final int TOTAL_BYTES = 158;
+        final int TOTAL_BYTES = 93;
         long size;
         if (fileR != null) {
             size = fileR.length();
@@ -137,7 +144,7 @@ public class Ejercicio09UTF {
     private static void addContact(RandomAccessFile fileR) throws IOException {
         String name, address, buffer;
         int zipCode, phoneNumber, id;
-        final int TOTAL_BYTES = 158;
+        final int TOTAL_BYTES = 93;
         long sizeFile, position;
         boolean debt, wrongData;
         LocalDate birthdate = null;
@@ -186,10 +193,10 @@ public class Ejercicio09UTF {
             fileR.seek(sizeFile);
             fileR.writeInt(id + 1);
             fileR.writeBoolean(true);
-            buffer = String.format("%20s", name);
+            buffer = String.format("%-20s", name);
             fileR.writeUTF(buffer);
             fileR.writeInt(phoneNumber);
-            buffer = String.format("%35s", address);
+            buffer = String.format("%-35s", address);
             fileR.writeUTF(buffer);
             fileR.writeInt(zipCode);
             fileR.writeUTF(birthdate.format(DateTimeFormatter.ofPattern("dd-MM-yyyy")));
@@ -200,7 +207,7 @@ public class Ejercicio09UTF {
 
     private static void deleteContact(RandomAccessFile fileR, int id) throws IOException {
         int position;
-        final int TOTAL_BYTES = 158, SKIP_INT = 4;
+        final int TOTAL_BYTES = 93, SKIP_INT = 4;
         if (fileR != null) {
             position = TOTAL_BYTES * (id-1);
             if (position < fileR.length()) {
@@ -215,7 +222,7 @@ public class Ejercicio09UTF {
     private static void modifyDebt(RandomAccessFile fileR, int id) throws IOException {
         int position;
         double debtAmount;
-        final int TOTAL_BYTES = 158, POSITION_DEBT = 144;
+        final int TOTAL_BYTES = 93, POSITION_DEBT = 144;
         if (fileR != null) {
             position = TOTAL_BYTES * (id-1);
             if (position < fileR.length()) {
@@ -229,7 +236,7 @@ public class Ejercicio09UTF {
 
     private static RandomAccessFile compact(RandomAccessFile fileR) throws IOException {
         int position = 0, idContador = 0, newId = 0;
-        final int TOTAL_BYTES = 158, SKIP_INT = 4;
+        final int TOTAL_BYTES = 93, SKIP_INT = 4;
         RandomAccessFile compactor;
         File dir, fCompactator;
 //        dir = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random");
@@ -255,7 +262,7 @@ public class Ejercicio09UTF {
             fileR.close();
             compactor.close();
             fileRandom.delete();
-            fCompactator.renameTo(new File(dir, "ridier.dat"));
+            fCompactator.renameTo(new File(dir, "ridierUTF.dat"));
 //            return new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridierUTF.dat", "rw");
             return new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridierUTF.dat", "rw");
         }

@@ -33,7 +33,7 @@ public class CreateRandonFileUTF {
                     randomFile.writeUTF(contact.getBirthdate().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))); // 22
                     randomFile.writeBoolean(contact.isDebt()); // 1
                     randomFile.writeDouble(contact.getDebtAmount()); // 8
-                    // Total: 152
+                    // Total: 93 no tengo ni idea.
                 }
             } catch (EOFException e) {} catch (ClassNotFoundException e) {
                 e.printStackTrace();
