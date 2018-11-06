@@ -7,8 +7,8 @@ import java.time.format.DateTimeFormatter;
 
 public class CreateRandonFile {
     public static void main(String[] args) {
-//        File file8 = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
-        File file8 = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
+        File file8 = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
+//        File file8 = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
         ObjectInputStream read;
         RandomAccessFile randomFile = null;
         Contact contact;
@@ -16,8 +16,8 @@ public class CreateRandonFile {
         StringBuffer buffer;
         try {
             read = new ObjectInputStream(new FileInputStream(file8));
-//            randomFile = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
-            randomFile = new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
+            randomFile = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
+//            randomFile = new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat", "rw");
             try {
                 while (true) {
                     contact = (Contact) read.readObject();
