@@ -13,9 +13,11 @@ public class Ejercicio08 {
         int phoneNumber, zipCode;
         LocalDate birthdate = null;
         boolean debt, wrongData, continueAdd;
-        double debtAmount = 0.00;
+        double debtAmount;
 //        File f = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi\\noObject.txt");
-        File f = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\bi\\noObject.txt");
+//        File f = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\bi\\noObject.txt");
+        // Para el ejercicio 11.
+        File f = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Comparacion11\\sinSerializacion.dat");
         DataInputStream read;
         DataOutputStream write = null;
 
@@ -55,6 +57,8 @@ public class Ejercicio08 {
             if (debt) {
                 System.out.println("How much money do you owe?");
                 debtAmount = Teclado.leerNumero(Teclado.Tipo.DOUBLE);
+            } else {
+                debtAmount = 0;
             }
 
             try {
@@ -66,7 +70,7 @@ public class Ejercicio08 {
                 write.writeBoolean(debt);
                 write.writeDouble(debtAmount);
 
-                
+
             }  catch (IOException e) {
                 e.printStackTrace();
             }

@@ -9,17 +9,19 @@ import java.time.format.DateTimeParseException;
 
 public class Ejercicio08_2 {
     public static void main(String[] args) {
-        File f = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
+//        File f = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
 //        File f = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\bi\\Objecto.txt");
-        File f2 = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi","Objecto.txt");
+        File f = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Comparacion11\\conSerializacion.dat");
+//        File f2 = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\bi","Objecto.txt");
 //        File f2 = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\bi","Objecto.txt");
+        File f2 = new File("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Comparacion11","conSerializacion.dat");
         ObjectInputStream read;
         ObjectOutputStream write = null;
         String name, address;
         int phoneNumber, zipCode;
         LocalDate birthdate = null;
         boolean debt, wrongData, continueAdd;
-        double debtAmount = 0.00;
+        double debtAmount;
         Contact contact;
 
         try {
@@ -64,6 +66,8 @@ public class Ejercicio08_2 {
             if (debt) {
                 System.out.println("How much money do you owe?");
                 debtAmount = Teclado.leerNumero(Teclado.Tipo.DOUBLE);
+            } else {
+                debtAmount = 0;
             }
 
             try {

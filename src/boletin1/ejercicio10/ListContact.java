@@ -9,10 +9,14 @@ public class ListContact {
     private List<Contact> contacts = new ArrayList<>();
 
     public List<Contact> getContacts() {
-        return new ArrayList<>(contacts);
+        return contacts;
     }
 
     public void addContact(Contact contact) {
         contacts.add(contact);
+    }
+
+    public Contact getContact(int position) {
+        return contacts.get(position);
     }
 }
