@@ -319,7 +319,7 @@ public class Ejercicio09 {
 //        fCompactator = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\compactator.dat");
 //        File fileRandom = new File("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridier.dat");
 
-        // comprobar si he deleted en otra ejecucion.
+        // comprobar si he borrado en otra ejecucion.
         if (!deleted) {
             checkDeleted(fileR);
         }
@@ -328,7 +328,7 @@ public class Ejercicio09 {
             compactor = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\compactator.dat", "rw");
 //            compactor = new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\compactator.dat", "rw");
             while (position < fileR.length()) {
-                // Nos posicionamos en el boleano de deleted.
+                // Nos posicionamos en el boleano de borrado.
                 fileR.seek(position + SKIP_INT);
                 if (fileR.readBoolean()) {
                     newId++;
@@ -353,7 +353,7 @@ public class Ejercicio09 {
         long sizeTotal = fileR.length();
 
         while (position < sizeTotal && !deleted) {
-            // Nos posicionamos en el boleano de deleted.
+            // Nos posicionamos en el boleano de borrado.
             fileR.seek(position + SKIP_INT);
             if (!fileR.readBoolean()) {
                 deleted = true;
@@ -417,7 +417,7 @@ public class Ejercicio09 {
 
         fileR.seek(posicion);
         id = fileR.readInt();
-        // Saltar posicion para no mostrar el boolean de deleted.
+        // Saltar posicion para no mostrar el boolean de borrado.
         fileR.skipBytes(SKIP_BOOLEAN);
         for (i = 0; i < 20; i++) {
             name += fileR.readChar();

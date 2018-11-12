@@ -70,7 +70,7 @@ public class Ejercicio11 {
                     dat8 = read8.read();
                     dat11 = read11.read();
 
-                    esIgual = dat8 == dat11;
+                      esIgual = dat8 == dat11;
                 }
             } else {
                 esIgual = false;

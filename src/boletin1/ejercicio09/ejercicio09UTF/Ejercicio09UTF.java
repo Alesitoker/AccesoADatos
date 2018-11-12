@@ -116,7 +116,7 @@ public class Ejercicio09UTF {
             size = (int) fileR.length();
 
             while (position < size) {
-                // Nos posicionamos en el boleano de deleted.
+                // Nos posicionamos en el boleano de borrado.
                 fileR.seek(position + SKIP_INT);
                 if (fileR.readBoolean()) {
                     showContact(fileR, position);
@@ -172,7 +172,7 @@ public class Ejercicio09UTF {
             size = fileR.length();
 
             while (position < size && noDelete) {
-                // Nos posicionamos en el boleano de deleted.
+                // Nos posicionamos en el boleano de borrado.
                 fileR.seek(position + SKIP_INT);
                 noDelete = fileR.readBoolean();
                 if (!noDelete) {
@@ -185,7 +185,6 @@ public class Ejercicio09UTF {
             }
             if (noDelete) {
                 addContactLast(fileR);
-//                System.out.println("We could not add a new contact");
             }
         }
     }
@@ -315,11 +314,11 @@ public class Ejercicio09UTF {
             checkDeleted(fileR);
         }
         if (fileR != null && deleted) {
-            while (position < fileR.length()) {
-                // iniciamos dentro para que no se cree un nuevo archivo en el caso que no se tenga que compactar.
-                compactor = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\compactatorUTF.dat", "rw");
+            // iniciamos dentro para que no se cree un nuevo archivo en el caso que no se tenga que compactar.
+            compactor = new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\compactatorUTF.dat", "rw");
 //                compactor = new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\compactatorUTF.dat", "rw");
-                // Nos posicionamos en el boleano de deleted.
+            while (position < fileR.length()) {
+                // Nos posicionamos en el boleano de borrado.
                 fileR.seek(position + SKIP_INT);
                 if (fileR.readBoolean()) {
                     newId++;
@@ -331,7 +330,7 @@ public class Ejercicio09UTF {
             fileR.close();
             compactor.close();
             fileRandom.delete();
-            fCompactator.renameTo(new File(dir, "ridier.dat"));
+            fCompactator.renameTo(new File(dir, "ridierUTF.dat"));
             return new RandomAccessFile("C:\\zProyectos\\AccesoADatos\\Esnuevoo\\Random\\ridierUTF.dat", "rw");
 //            return new RandomAccessFile("D:\\Proyectos\\AccesoADatos\\Esnuevoo\\Random\\ridierUTF.dat", "rw");
         }
@@ -343,8 +342,8 @@ public class Ejercicio09UTF {
         final int TOTAL_BYTES = 93, SKIP_INT = 4;
         long sizeTotal = fileR.length();
 
-        while (position < sizeTotal && deleted) {
-            // Nos posicionamos en el boleano de deleted.
+        while (position < sizeTotal && !deleted) {
+            // Nos posicionamos en el boleano de borrado.
             fileR.seek(position + SKIP_INT);
             if (!fileR.readBoolean()) {
                 deleted = true;

@@ -1,0 +1,20 @@
+<ListContact>
+  <Contact>
+    <name>hola</name>
+    <address locality="aguacate">a</address>
+    <phoneNumber prefix="34">123456789</phoneNumber>
+    <zipCode>1234</zipCode>
+    <birthdate>1212-12-12</birthdate>
+    <debt>true</debt>
+    <debtAmount coinType="Euro">567.0</debtAmount>
+  </Contact>
+  <Contact>
+    <name>adios</name>
+    <address locality="noVivo">no</address>
+    <phoneNumber prefix="65">123456789</phoneNumber>
+    <zipCode>3456</zipCode>
+    <birthdate>1212-12-12</birthdate>
+    <debt>false</debt>
+    <debtAmount coinType="Dollar">0.0</debtAmount>
+  </Contact>
+</ListContact>
