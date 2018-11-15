@@ -2,7 +2,7 @@
   <Contact>
     <name>hola</name>
     <address locality="aguacate">a</address>
-    <phoneNumber prefix="34">123456789</phoneNumber>
+    <phoneNumber prefix="+34">123456789</phoneNumber>
     <zipCode>1234</zipCode>
     <birthdate>1212-12-12</birthdate>
     <debt>true</debt>
@@ -11,7 +11,16 @@
   <Contact>
     <name>adios</name>
     <address locality="noVivo">no</address>
-    <phoneNumber prefix="65">123456789</phoneNumber>
+    <phoneNumber prefix="+850">123456789</phoneNumber>
+    <zipCode>3456</zipCode>
+    <birthdate>1212-12-12</birthdate>
+    <debt>false</debt>
+    <debtAmount coinType="Dollar">0.0</debtAmount>
+  </Contact>
+  <Contact>
+    <name>pollo</name>
+    <address locality="noVivo">you</address>
+    <phoneNumber prefix="+850">123456789</phoneNumber>
     <zipCode>3456</zipCode>
     <birthdate>1212-12-12</birthdate>
     <debt>false</debt>
