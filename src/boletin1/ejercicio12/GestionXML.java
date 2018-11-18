@@ -24,7 +24,7 @@ public class GestionXML extends DefaultHandler {
             e.printStackTrace();
         }
         try {
-            wr = new FileWriter("C:\\zProyectos\\AccesoADatos\\src\\boletin1\\ejercicio12\\ficherin.txt");
+            wr = new FileWriter(f);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -38,7 +38,6 @@ public class GestionXML extends DefaultHandler {
             e.printStackTrace();
         }
     }
-
 
 
     @Override
@@ -68,7 +67,7 @@ public class GestionXML extends DefaultHandler {
             } else if (prefix != null) {
                 escrito = String.format("prefix: %s %s: %s ", prefix, qName, valor);
             } else if (coinType != null) {
-                escrito = String.format("coin type: %s: %s %s", qName, valor, coinType);
+                escrito = String.format("%s: %s coin type: %s", qName, valor, coinType);
             } else if (qName.equals("debt")){
                 escrito = String.format("%s: %s ", qName, valor.equals("true") ? "si" : "no");
             } else {

@@ -14,11 +14,11 @@ import java.io.IOException;
 public class Ejercicio12 {
     public static void main(String[] args) {
         GestionXML gestorXML = new GestionXML();
-        InputSource fileXML = new InputSource("C:\\zProyectos\\AccesoADatos\\src\\boletin1\\ejercicio12\\contact.xml");
         SAXParserFactory saxParserFactory = SAXParserFactory.newDefaultInstance();
         try {
             SAXParser saxParser = saxParserFactory.newSAXParser();
-            saxParser.parse(new File("C:\\zProyectos\\AccesoADatos\\src\\boletin1\\ejercicio12\\contact.xml"), gestorXML);
+            saxParser.parse(new File("C:\\zProyectos\\AccesoADatos\\src\\boletin1\\ejercicio12\\contact.xml"),
+                    gestorXML);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
