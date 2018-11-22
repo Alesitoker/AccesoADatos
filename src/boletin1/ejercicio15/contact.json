@@ -1,0 +1,30 @@
+{
+  "contacts": [
+    {
+      "name": "Hola soy un contacto",
+      "address": "a",
+      "phoneNumber": 123456789,
+      "zipCode": 1234,
+      "birthdate": {
+        "year": 1212,
+        "month": 12,
+        "day": 12
+      },
+      "debt": true,
+      "debtAmount": 56723423432423423.8383923423423432213123234243
+    },
+    {
+      "name": "Adios",
+      "address": "no",
+      "phoneNumber": 123456789,
+      "zipCode": 3456,
+      "birthdate": {
+        "year": 2012,
+        "month": 2,
+        "day": 12
+      },
+      "debt": false,
+      "debtAmount": 0.0
+    }
+  ]
+}
